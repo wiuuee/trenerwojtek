@@ -1,0 +1,583 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.98);
+            padding: 1rem;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #8D99AE 0%, #2B2D42 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #667eea;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 60px;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #8D99AE 0%, #2B2D42 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: white;
+            color: #D90429;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+
+        .cta-button:active {
+            transform: translateY(2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Hero Photo */
+        .hero-photo {
+            width: 100%;
+            max-width: 320px;
+            aspect-ratio: 4/3;
+            border-radius: 15px;
+            object-fit: cover;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 0.8s ease 0.3s both;
+        }
+
+        /* About Section */
+        .about {
+            padding: 3rem 2rem;
+            background: #f8f9fa;
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #2B2D42;
+        }
+
+        .about-content {
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            color: #555;
+        }
+
+        .about-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        /* Video Section */
+        .video {
+            padding: 3rem 2rem;
+            background: white;
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .video-container {
+            max-width: 600px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            height: 0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Skills Section */
+        .skills {
+            padding: 3rem 2rem;
+            background: white;
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            max-width: 600px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .skill-card {
+            background: linear-gradient(135deg, #8D99AE 0%, #2B2D42 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .skill-card:active {
+            transform: translateY(-5px);
+        }
+
+        .skill-card h3 {
+            margin-top: 1rem;
+        }
+
+        /* Portfolio Section */
+        .portfolio {
+            padding: 3rem 2rem;
+            background: #f8f9fa;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .portfolio-item {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .portfolio-item:active {
+            transform: scale(0.98);
+        }
+
+        .portfolio-image {
+            
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #8D99AE 0%, #2B2D42 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        
+        }
+        .portfolio-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            
+        }
+
+        .portfolio-info {
+            padding: 1.5rem;
+        }
+
+        .portfolio-info h3 {
+            color: #ea6666;
+            margin-bottom: 0.5rem;
+        }
+
+        .portfolio-info p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, #8D99AE 0%, #2B2D42 100%);
+            color: white;
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-info {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-item {
+            margin: 1.5rem 0;
+        }
+
+        .contact-item a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: opacity 0.3s ease;
+        }
+
+        .contact-item a:active {
+            opacity: 0.7;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+
+        .social-links a:active {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            nav ul {
+                gap: 0.5rem;
+            }
+
+            nav a {
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav {
+                padding: 0.8rem;
+            }
+
+            nav .logo {
+                font-size: 1.2rem;
+            }
+
+            .hero {
+                margin-top: 50px;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 0.95rem;
+            }
+
+            .cta-button {
+                padding: 0.8rem 2rem;
+                font-size: 0.95rem;
+            }
+
+            .section-title {
+                font-size: 1.7rem;
+            }
+
+            nav ul {
+                gap: 0;
+                font-size: 0.7rem;
+            }
+            .praca {
+                font-size: 0.9rem;
+                margin-bottom: 1rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">Portfolio</div>
+        <ul>
+            <li><a href="#about">O mnie</a></li>
+            <li><a href="#video">Moja Praca</a></li>
+            <li><a href="#skills">Umiejętności</a></li>
+            <li><a href="#portfolio">Dlaczego Ja?</a></li>
+            <li><a href="#contact">Kontakt</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Dzień Dobry!</h1>
+        <img src="hero.jpg" alt="Your photo" class="hero-photo">
+        <p>Zejdź niżej, aby dowiedzieć się więcej o mnie!💪 </p>
+        <a href="#about" class="cta-button">Dowiedz się więcej</a>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <h2 class="section-title">Trochę o mnie</h2>
+        <div class="about-content">
+            <p>
+                Jestem wykwalifikowanym trenerem personalnym z dużą pasją do sportu i rozwoju fizycznego. Posiadam wymagane certyfikaty oraz wiedzę, którą skutecznie wykorzystuję w pracy z podopiecznymi, pomagając im osiągać konkretne cele sylwetkowe i zdrowotne. Wyróżniam się wysokimi umiejętnościami interpersonalnymi – potrafię budować relacje oparte na zaufaniu, motywować oraz indywidualnie dopasowywać podejście do każdej osoby.
+            </p>
+            <p>
+                Na co dzień dbam o własną formę, a moja sylwetka stanowi wizytówkę mojego zaangażowania i stylu życia. Jestem osobą sumienną, zdyscyplinowaną i konsekwentną w działaniu. Sport to nie tylko moja praca, ale przede wszystkim sposób na życie – stale rozwijam swoje kompetencje i poszerzam wiedzę z zakresu treningu oraz dietetyki.
+            </p>
+            <p>
+                Obecnie przygotowuję się do zawodów sylwetkowych, które odbędą się w październiku, co dodatkowo podkreśla moje zaangażowanie i profesjonalne podejście do tej dziedziny. W przyszłości planuję konsekwentnie rozwijać swoją karierę w branży fitness, podnosząc kwalifikacje i osiągając coraz wyższy poziom jako trener personalny.
+            </p>
+
+        </div>
+    </section>
+
+    <!-- Video Section -->
+    <section class="video" id="video">
+        <h2 class="section-title">Moja Praca</h2>
+        <h4 class="section-title">Kliknij aby obejrzeć filmik o mnie!</h4>
+        
+        <div class="video-container">
+            <div class="video-wrapper">
+                <iframe src="https://www.youtube.com/embed/GTtL3eDXJJ0?rel=0" title="YouTube video" frameborder="0" allowfullscreen="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="skills" id="skills">
+        <h2 class="section-title">Umiejętności</h2>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <div>💪</div>
+                <h3>Pracowity</h3>
+            </div>
+            <div class="skill-card">
+                <div>🎨</div>
+                <h3>Kreatywny</h3>
+            </div>
+            <div class="skill-card">
+                <div>👀</div>
+                <h3>Odpowiedzialny</h3>
+            </div>
+            <div class="skill-card">
+                <div>⚡</div>
+                <h3>Zdyscyplinowany</h3>
+            </div>
+            <div class="skill-card">
+                <div>🎯</div>
+                <h3>Skuteczny</h3>
+            </div>
+            <div class="skill-card">
+                <div>🚀</div>
+                <h3>Innowacyjny</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section class="portfolio" id="portfolio">
+        <h2 class="section-title">Moja osoba</h2>
+        <div class="portfolio-grid">
+            <div class="portfolio-item">
+                <div class="portfolio-image"><img src="stronaja.jpg" alt=""></div>
+                <div class="portfolio-info">
+                    <h3>Sumienny</h3>
+                    <p>Moje zainteresowania i pasje nauczyły mnie ogromnej summienności, jak i dyscypliny.</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-image"><img src="odpstrona.jpg" alt=""></div>
+                <div class="portfolio-info">
+                    <h3>Odpowiedzialny</h3>
+                    <p>Jestem wysoce odpowiedzialną osobą, nie bojącą się nowych wyzwań.</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-image"><img src="dos.jpg" alt=""></div>
+                <div class="portfolio-info">
+                    <h3>Doświadczony</h3>
+                    <p>Posiadam rozbudowane doświadczenie w dziedzinie swojej pracy. Naukę pochłaniam od 15 roku życia, cały czas się uczę i chcę poszerzać swoje horyzonty.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <h2>Kontakt</h2>
+        <div class="contact-info">
+            <div class="contact-item">
+                <p>📧 Email</p>
+                <a href="mailto:your.email@example.com">wzawadzkikontakt@gmail.com</a>
+            </div>
+            <div class="contact-item">
+                <p>📱 Telefon</p>
+                <a href="tel:+1234567890">+48 609 022 103</a>
+            </div>
+            <div class="social-links">
+             
+                <a href="https://www.instagram.com/w.zawadzkii/" title="Instagram">📷</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Strona napisana przez Wojciech Zawadzki</p>
+    </footer>
+
+    <script>
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
